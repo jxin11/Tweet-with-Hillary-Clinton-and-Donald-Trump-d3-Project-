@@ -44,47 +44,61 @@
     
     <script>
 
-        function updateCount(filterName){
-    
-            var friends_count, followers_count, statuses_count;
-            d3.csv("data/user_info.csv", function(data) {   // Handle the resolved Promise
-                
-                data2 = data.filter(function(d) { return d.Name == filterName });
-                
-                data2.forEach(function(d) {
-                    friends_count = d.friend_count;
-                    followers_count = d.follower_count;
-                    statuses_count = d.status_count;
-                });
-    
-            });
-
-            setTimeout(function(){
-                $('#odometer_friends').html(friends_count);
-                $('#odometer_followers').html(followers_count);
-                $('#odometer_statuses').html(statuses_count);
-            }, 20);
-        }
-
         function detectClick(filterName){
             if (filterName == 'HillaryClinton'){
-                $('#clintonButton').addClass('addGlowEffect');
-                $('#trumpButton').removeClass('addGlowEffect');
+                if ($('#clintonButton').hasClass('addGlowEffect')){
+                    $('#clintonButton').removeClass('addGlowEffect');
+                    updateCount('total'); barChart(''); parallelSet(''); parallelCoord(''); treeMap(''); heatMap(''); wordCloud2();
+                }else{
+                    $('#clintonButton').addClass('addGlowEffect');
+                    $('#trumpButton').removeClass('addGlowEffect');
+                    updateCount('HillaryClinton');
+                    barChart('HillaryClinton'); parallelSet('HillaryClinton');
+                    parallelCoord('HillaryClinton'); treeMap('HillaryClinton');
+                    heatMap('HillaryClinton'); wordCloud('HillaryClinton');
+                }
             } else if (filterName == 'realDonaldTrump') {
-                $('#clintonButton').removeClass('addGlowEffect');
-                $('#trumpButton').addClass('addGlowEffect');
+                if ($('#trumpButton').hasClass('addGlowEffect')){
+                    $('#trumpButton').removeClass('addGlowEffect');
+                    updateCount('total'); barChart(''); parallelSet(''); parallelCoord(''); treeMap(''); heatMap(''); wordCloud2();
+                }else{
+                    $('#trumpButton').addClass('addGlowEffect');
+                    $('#clintonButton').removeClass('addGlowEffect');
+                    updateCount('realDonaldTrump');
+                    barChart('realDonaldTrump'); parallelSet('realDonaldTrump');
+                    parallelCoord('realDonaldTrump'); treeMap('realDonaldTrump');
+                    heatMap('realDonaldTrump'); wordCloud('realDonaldTrump');
+                }
             }
+        }
+
+        function updateCount(filterName){
+    
+            var friends_count = 0, followers_count = 0, statuses_count = 0;
+            d3.csv("data/user_info.csv", function(data) {
+                
+                    data = data.filter(function(d) { return d.Name == filterName });
+                    data.forEach(function(d) {
+                        friends_count = d.friend_count;
+                        followers_count = d.follower_count;
+                        statuses_count = d.status_count;
+                    });
+                    
+                    setTimeout(function(){
+                        $('#odometer_friends').html(friends_count);
+                        $('#odometer_followers').html(followers_count);
+                        $('#odometer_statuses').html(statuses_count);
+                    }, 200);
+            });
+
         }
 
         function parallelSet(filterName){
             var id = document.getElementById("parallelSet");
             if (filterName == 'HillaryClinton'){
-                // id.appendChild("<iframe src='parallelSet_Clinton.html' style='height:680px;width:1300px;border:0;''></iframe>");
                 id.innerHTML =  "<h4>Retweet & Language & Sentiment Analysis</h4><iframe src='iframe/parallelSet_Clinton.html' style='height:680px;width:1300px;border:0;''></iframe>"; 
             } else {
-                // id.removeChild(id.childNodes[1]);
                 id.innerHTML =  "<h4>Retweet & Language & Sentiment Analysis</h4><iframe src='iframe/parallelSet_Trump.html' style='height:680px;width:1300px;border:0;''></iframe>"; 
-                // id.appendChild("<iframe src='parallelSet_Trump.html' style='height:680px;width:1300px;border:0;''></iframe>");
             }
         }
     
@@ -95,15 +109,20 @@
 
     <div class="img_container">
         <img src="img/clinton.jpg" alt="Avatar" class="round-hover" id="clintonButton" hspace="30" 
+             onclick="detectClick('HillaryClinton');">
+        <img src="img/trump.jpg" alt="Avatar" class="round-hover" id="trumpButton" hspace="30" 
+             onclick="detectClick('realDonaldTrump');">
+
+        <!-- <img src="img/clinton.jpg" alt="Avatar" class="round-hover" id="clintonButton" hspace="30" 
              onclick="updateCount('HillaryClinton'); detectClick('HillaryClinton'); 
                       barChart('HillaryClinton'); parallelSet('HillaryClinton');
                       parallelCoord('HillaryClinton'); treeMap('HillaryClinton');
-                      heatMap('HillaryClinton'); wordCloud('HillaryClinton');">
-        <img src="img/trump.jpg" alt="Avatar" class="round-hover" id="trumpButton" hspace="30" 
+                      heatMap('HillaryClinton'); wordCloud('HillaryClinton');"> -->
+        <!-- <img src="img/trump.jpg" alt="Avatar" class="round-hover" id="trumpButton" hspace="30" 
              onclick="updateCount('realDonaldTrump'); detectClick('realDonaldTrump'); 
                       barChart('realDonaldTrump'); parallelSet('realDonaldTrump');
                       parallelCoord('realDonaldTrump'); treeMap('realDonaldTrump');
-                      heatMap('realDonaldTrump'); wordCloud('realDonaldTrump');">
+                      heatMap('realDonaldTrump'); wordCloud('realDonaldTrump');"> -->
     </div>
 
     <div class="count_container">
@@ -121,6 +140,8 @@
             <h3>Statuses Count</h3>
             <div class="odometer" id="odometer_statuses">0</div>
         </div>
+
+        <script>updateCount("total");</script>
     </div>
 
     <br> <br>
@@ -154,6 +175,7 @@
 
         <div class="treeMap" id="treeMap">
             <h4>Retweet Author</h4>
+            <script>treeMap("");</script>
         </div>
     </div>
 
@@ -161,7 +183,8 @@
         <div class="wordCloudFrame">
             <h4>Word Cloud</h4>
             <center>
-            <div class="wordCloud">  </div>
+                <div></div>
+            <div class="wordCloud" > </div>
             </center>
             <center>
             <p id="infoContainer">  
@@ -173,9 +196,11 @@
             </p>
             <div id="tweetsContainer" > </div>
             </center>
+
+            
+            <script>wordCloud2();</script>
         </div>
     </div>
-        <!-- <script>wordCloud('HillaryClinton');</script> -->
-    
-
+        
 </body>
+</html>

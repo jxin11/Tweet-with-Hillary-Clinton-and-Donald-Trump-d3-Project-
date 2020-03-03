@@ -45,14 +45,28 @@ function treeMap(filterName){
     var candidate = filterName;
     var treejson = "";
 
-    if(candidate == "HillaryClinton")
-        treejson = "data/hillarytree.json";
-    else
-        treejson = "data/trumptree.json";
+    // if(candidate == "HillaryClinton")
+    //     treejson = "data/hillarytree.json";
+    // else if(candidate == "realDonaldTrump")
+    //     treejson = "data/trumptree.json";
+    // else
+    //     treejson = "data/tree.json";
+
+    treejson = "data/tree.json";
 
     d3.json(treejson, function(data) {
-        var root = d3.hierarchy(data);
-        console.log(root);
+
+        var treedata;
+        if(filterName == "HillaryClinton")
+            treedata = data.Hillary;
+        else if (filterName == "realDonaldTrump")
+            treedata = data.Trump;
+        else
+            treedata = data.All;
+
+        var root = d3.hierarchy(treedata);
+
+        // console.log(root);
         treemap(root
             .sum(function (d) {
                 return d.value;

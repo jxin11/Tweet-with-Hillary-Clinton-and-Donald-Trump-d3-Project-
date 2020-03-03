@@ -1,11 +1,16 @@
 .viz_Row5{
     font-family: Georgia;
-    background-color: black;
-    color: white;
+    /* background-color: black; */
+	color: white;
+	margin-bottom: 40px;
 }
 
 /* .viz_Row5 .wordCloud{
-	background-color: black;
+	/* background-color: black; */
+	display: flex;
+    /* flex-wrap: nowrap; */
+	flex-direction: column;
+	/* height: 900px; */
 } */
 
 .viz_Row5 #tweetsContainer span.bold{
