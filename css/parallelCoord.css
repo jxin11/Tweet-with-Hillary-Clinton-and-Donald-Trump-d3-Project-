@@ -1,0 +1,54 @@
+.viz_Row4 .parallelCoord svg {
+    font: 12px sans-serif;
+}
+
+.viz_Row4 .parallelCoord .background path {
+    fill: none;
+    stroke: rgb(0, 0, 0);   /* change this for hovering color*/
+    shape-rendering: geometricPrecision;
+}
+
+.viz_Row4 .parallelCoord .foreground path {
+    fill: none;
+    stroke: steelblue;
+}
+
+.viz_Row4 .parallelCoord .axis .title {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.viz_Row4 .parallelCoord .axis line,
+.viz_Row4 .parallelCoord .axis path {
+    fill: none;
+    stroke: white;
+    shape-rendering: geometricPrecision;
+}
+
+.viz_Row4 .parallelCoord .axis.string {
+    font-size: 12px;
+}
+
+.viz_Row4 .parallelCoord .axis text {
+    fill: #fff;
+}
+
+.viz_Row4 .parallelCoord .label {
+    transition: fill 125ms linear;
+}
+
+.viz_Row4 .parallelCoord .active .label:not(.inactive) {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.viz_Row4 .parallelCoord .label.inactive {
+    fill: #ccc;
+}
+
+.viz_Row4 .parallelCoord .foreground path.inactive {
+    stroke: rgb(0, 0, 0);  /* change this for hovering color*/
+    stroke-opacity: .5;
+    stroke-width: 1px;
+}

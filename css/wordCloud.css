@@ -1,0 +1,78 @@
+.viz_Row5{
+    font-family: Georgia;
+    background-color: black;
+    color: white;
+}
+
+/* .viz_Row5 .wordCloud{
+	background-color: black;
+} */
+
+.viz_Row5 #tweetsContainer span.bold{
+	font-weight:bold;
+}
+
+.viz_Row5 #tweetsContainer{
+	width: 960px;
+	padding: 5px 15px;
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.viz_Row5 .tweets:hover{
+	opacity:1;
+}
+
+.viz_Row5 #word{
+	font-style: italic;
+	font-size:2em;
+}
+
+.viz_Row5 #infoContainer{
+	margin-top:0px;
+}
+
+.viz_Row5 #infoContainer span{
+	padding: 0px 20px;
+}
+
+.viz_Row5 .tweets {
+	width:80%;
+	border-radius: 5px;
+	opacity: 0.7;
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
+}
+
+.viz_Row5 .tweets .tooltiptext {
+	font-size:0.8em;
+	font-weight:normal;
+	visibility: hidden;
+	width: 95px;
+	background-color: white;
+	color: black;
+	text-align: center;
+	border-radius: 5px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
+	top: -5px;
+	right: 101%;
+}
+
+.viz_Row5 .tweets .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+}
+
+.viz_Row5 .tweets:hover .tooltiptext {
+    visibility: visible;
+}

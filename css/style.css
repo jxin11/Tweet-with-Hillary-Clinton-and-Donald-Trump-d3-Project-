@@ -1,0 +1,181 @@
+body {
+    background-color: black;
+}
+
+h1 {
+    font-family: Trebuchet MS;
+    color: white;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+h2 {
+    font-family: Trebuchet MS;
+    color: white;
+    text-align: center;
+    font-weight: 200;
+    font-size: 18px;
+    margin-top: 4px;
+}
+
+.img_container {
+    text-align: center;
+    padding: 30px 0 30px 0;
+}
+  
+.img_container .round-hover {
+    height: 15%;
+    width: 10%;
+    border-radius: 50%;
+}
+  
+.img_container .round-hover:hover{
+    -webkit-box-shadow: 0px 0px 8px 5px white;
+    -moz-box-shadow: 0px 0px 8px 2px light white;
+    box-shadow: 0px 0px 8px 2px light white;
+}
+
+.addGlowEffect{
+    -webkit-box-shadow: 0px 0px 8px 5px white;
+    -moz-box-shadow: 0px 0px 8px 2px light white;
+    box-shadow: 0px 0px 8px 2px light white;
+}
+
+.count_container{
+    display: flex;
+    flex-direction: row;
+    padding: 0 205px 0 205px;
+    /* border: 2px solid white; */
+    justify-content: space-between;
+}
+
+.count_container .friends_container, .count_container .followers_container, .count_container .statuses_container{
+    display: flex;
+    padding: 0 45px 20px 45px;
+    flex-direction: column;
+    text-align: center;
+    /* border: 2px solid white; */
+}
+
+h3 {
+    font-family: Trebuchet MS;
+    color: white;
+    text-align: center;
+    font-weight: 300;
+    font-size: 22px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.odometer{
+    font-size: 40px;
+    color: white;
+    justify-content: center;
+}
+
+.viz_Row1, .viz_Row2, .viz_Row3, .viz_Row4, .viz_Row5{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 50px 0 50px;
+    /* border: 1px solid white; */
+    margin-bottom: 18px;
+}
+
+h4 {
+    font-family: Trebuchet MS;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+    /* font-weight: 300; */
+    font-size: 25px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-left: 7px;
+}
+
+.viz_Row1 .barChart {
+    /* border: 1px solid white; */
+    text-align: left;
+    width: 100%;
+    height: 600px;
+    overflow: auto;
+    /* top: 70px; */
+    /* left: 80px; */
+    position: relative;
+}
+
+.viz_Row2 .heatMap{
+    /* border: 1px solid white; */
+    text-align: left;
+    width: 100%;
+    height: 560px;
+}
+
+.viz_Row3 .parallelSet{
+    /* border: 1px solid white; */
+    text-align: left;
+    width: 100%;
+    height: 400px;
+}
+
+.viz_Row4 .parallelCoord, .viz_Row4 .treeMap {
+    /* border: 1px solid white; */
+    text-align: left;
+    width: 49%;
+    height: 660px;
+}
+
+/* .viz_Row5 .wordCloud {
+    border: 1px solid white;
+    text-align: left;
+    width: 100%;
+    height: 600px;
+} */
+
+.viz_Row5 .wordCloudFrame{
+    /* border: 1px solid white; */
+    align-items: center;
+    /* text-align: left; */
+    width: 100%;
+    /* height: 600px; */
+}
+
+svg {
+    font: 12px sans-serif;
+    color: white;
+    width: 100%;
+    height: 90%;
+}
+
+.background path {
+    fill: none;
+    stroke: rgb(255, 255, 255);
+    shape-rendering: crispEdges;
+}
+
+.foreground path {
+    fill: none;
+    stroke: rgb(41, 172, 248);
+}
+
+.brush .extent {
+    fill-opacity: .1;
+    stroke: #fff;
+    shape-rendering: crispEdges;
+}
+
+.axis line,
+.axis path {
+    fill: none;
+    stroke: #fff;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    fill: #fff;
+    /* text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff; */
+    cursor: move;
+}

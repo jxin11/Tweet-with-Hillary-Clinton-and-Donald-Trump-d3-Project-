@@ -1,0 +1,23 @@
+#barChart text {
+    fill: rgb(255, 255, 255);
+    font: 12px Trebuchet MS;
+    text-anchor: end;
+}
+
+.vizRow1 .barChart .axis text {
+    font: 12px Trebuchet MS;
+    fill: rgb(255, 255, 255);
+}
+
+.vizRow1 .barChart .axis path, .vizRow1 .barChart .axis line {
+    fill: none;
+    color: white;
+    stroke: #fff;
+    shape-rendering: crispEdges;
+}
+
+.vizRow1 .barChart path {
+    stroke: white;
+    stroke-width: 2;
+    fill: white;
+}

@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3.v2.min.js"></script> -->
+
+    <title>Trend Chart</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<style type="text/css">
+
+    /* * {
+        background-color: black;
+    } */
+
+    /* .chart div {
+        font: 10px sans-serif;
+        background-color: steelblue;
+        text-align: right;
+        padding: 3px;
+        margin: 1px;
+        color: white;
+    } */
+</style>
+
+<body>
+
+    <div></div>
+
+    <script>
+        var data = [];
+        
+
+        d3.csv("data/cleanTweets.csv", function(d) {
+            return {
+                Month: d.date.split('-').slice(0, 2).join('-'),
+                Day: d.date,   //new Date(d.date)
+                Freq: 1
+                // Freq: d.text
+            };
+            
+        }, function(error, rows) {
+
+            dataset = rows; 
+            dataset.sort(function(a, b) {
+                var dateA = new Date(a.Day), dateB = new Date(b.Day);
+                return dateA - dateB;
+            });
+
+            console.log("Complete Dataset: ", dataset);
+
+            var counts = {};
+            rows.forEach(function(r) {
+                if (!counts[r.Day]) {
+                    counts[r.Day] = 0;
+                }
+                counts[r.Day]++;
+            });
+
+            Object.keys(counts).forEach(function(key) {
+                data.push({
+                    day: key,
+                    count: counts[key]
+                });
+            });
+
+            data.sort(function(a, b) {
+                var dateA = new Date(a.day), dateB = new Date(b.day);
+                return dateA - dateB;
+            });
+            // console.log(data);
+
+            var nested_data = d3.nest()
+                            .key(function(d) { return d.day.split('-').slice(0, 2).join('-'); })
+                            .sortKeys(d3.ascending)
+                            .rollup(function(leaves) {
+                                return {
+                                    count: d3.sum(leaves, function(d){ return d.count })
+                                };
+                            })
+                            .entries(data);
+            // console.log(nested_data);
+
+            var keys = nested_data.map(function(d){ return d.key; });
+            // console.log(keys);
+
+            var bar_chart_data = {
+                data: keys,
+                count: nested_data.map(function(d){ return d.value.count; })
+            };
+            // console.log(bar_chart_data.count);
+            // console.log(JSON.stringify(bar_chart_data))
+            
+            var month = bar_chart_data.data;
+            var month_freq = bar_chart_data.count;
+            // console.log(month_freq);
+            ////////////////////////////////////////////////////////////////////
+
+            //Width and height
+			var w = 800;
+			var h = 400;
+            var barPadding = 5;
+            
+            //Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+                        .attr("height", h);
+            
+            const yScale = d3.scaleLinear()
+                             .range([h, 0])
+                             .domain([0, d3.max(month_freq)]);
+            
+            const xScale = d3.scaleBand()
+                             .range([0, w])
+                             .domain(month)
+                             .padding(barPadding);
+                             
+            svg.append('g')
+               .attr('transform', `translate(40, 0)`)
+               .call(d3.axisLeft(yScale));
+
+            svg.append('g')
+                 .attr('transform', `translate(0, ${-100})`)
+                 .call(d3.axisBottom(xScale));
+
+            svg.selectAll("rect")
+			   .data(month_freq)
+			   .enter()
+               .append("rect")
+               .attr('transform', 'translate(60,0)')
+			   .attr("x", function(d, i) {
+			   		return i * (w / month_freq.length);
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d / 4);
+			   })
+			   .attr("width", w / month_freq.length - barPadding)
+			   .attr("height", function(d) {
+			   		return d * 4;
+			   })
+			   .attr("fill",  "#ff7f0e"//function(d) {
+					//return "rgb(0, 0, " + Math.round(d * 10) + ")";
+               //}
+               );
+            
+            svg.selectAll("text")
+			   .data(month_freq)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return d;
+			   })
+			   .attr("text-anchor", "middle")
+			   .attr("x", function(d, i) {
+			   		return i * (w / month_freq.length) + (w / month_freq.length - barPadding) / 2;
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d / 4) + 14;
+			   })
+			   .attr("font-family", "Trebuchet MS")
+			   .attr("font-size", "12px")
+			   .attr("fill", "black");
+            
+        });
+
+        
+        
+        
+        
+        // $(document).ready(function () {
+        //     Plot();
+        // });
+        
+        
+        
+            
+               
+        
+
+        
+        
+
+    </script>
+</body>

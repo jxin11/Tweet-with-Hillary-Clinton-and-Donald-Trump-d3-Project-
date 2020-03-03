@@ -1,0 +1,100 @@
+#treeMap {
+    max-width: 100%;
+    overflow:auto;
+}
+
+.viz_Row4 .treeMap text {
+    pointer-events: none;
+}
+
+.viz_Row4 .treeMap .grandparent text {
+    font-weight: bold;
+}
+
+.viz_Row4 .treeMap rect {
+    stroke: rgb(255, 255, 255);
+    stroke-width: 1px;
+}
+
+.viz_Row4 .treeMap rect.parent,
+.viz_Row4 .treeMap .grandparent rect {
+    stroke-width: 3px;
+    fill: rgb(12, 218, 190);
+}
+
+.viz_Row4 .treeMap .grandparent:hover rect {
+    fill: rgb(12, 218, 190);
+}
+
+.viz_Row4 .treeMap .children rect.parent,
+.viz_Row4 .treeMap .grandparent rect {
+    cursor: pointer;
+}
+
+.viz_Row4 .treeMap .children rect.child {
+    opacity: 0;
+}
+
+/* .children rect.parent {
+} */
+
+.viz_Row4 .treeMap .children:hover rect.child {
+    opacity: 1;
+    stroke-width: 1px;
+}
+
+.viz_Row4 .treeMap .children:hover rect.parent {
+    opacity: 0;
+}
+
+.viz_Row4 .treeMap .legend {
+    margin-bottom:8px !important;
+}
+
+.viz_Row4 .treeMap .legend rect {
+    stroke-width: 0px;
+}
+
+.viz_Row4 .treeMap .legend text {
+    text-anchor: middle;
+    pointer-events: auto;
+    font-size: 13px;
+    font-family: sans-serif;
+    fill: rgb(0, 0, 0);
+}
+
+.viz_Row4 .treeMap .form-group {
+    text-align:left;
+}
+
+.viz_Row4 .treeMap .textdiv {
+    font-family: Trebuchet MS;
+    font-size: 44px !important;
+    font-weight: bold;
+    padding: 7px;
+    cursor: pointer;
+    overflow:none;
+    fill: rgb(0, 0, 0);
+}
+
+.viz_Row4 .treeMap .textdiv .title {
+    font-family: Trebuchet MS;
+    font-size: 105%;
+    font-weight: bold;
+    margin-top: 8px;
+    font-size:11px !important;
+}
+
+.viz_Row4 .treeMap .textdiv p{
+    line-height: 13px;
+    margin:0 0 4px !important;
+    padding:0px;
+    font-size:10px !important;
+}
+
+.viz_Row4 .treeMap .foreignobj {
+    background-color: rgb(52, 129, 119);
+}
+
+
+

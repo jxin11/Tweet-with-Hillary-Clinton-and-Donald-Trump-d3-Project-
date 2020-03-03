@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- js file -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="js/barChart.js"></script>
+    <script src="js/parallelCoord.js"></script>
+    <script src="js/treeMap.js"></script>
+    <script src="js/heatMap.js"></script>
+    <script src="js/wordCloud.js"></script>
+
+    <!-- css file -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/barChart.css">
+    <link rel="stylesheet" href="css/parallelCoord.css">
+    <link rel="stylesheet" href="css/treeMap.css">
+    <link rel="stylesheet" href="css/heatMap.css">
+    <link rel="stylesheet" href="css/wordCloud.css">
+
+    <!-- Odometer -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/odometer.css" />
+    <script src="js/odometer.js"></script>
+
+    <!-- barChart -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <!-- wordCloud -->
+    <script src="js/d3.layout.cloud.js"></script>
+
+    <title>Tweet with Hillary Clinton & Donald Trump</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+    
+    <script>
+
+        function updateCount(filterName){
+    
+            var friends_count, followers_count, statuses_count;
+            d3.csv("data/user_info.csv", function(data) {   // Handle the resolved Promise
+                
+                data2 = data.filter(function(d) { return d.Name == filterName });
+                
+                data2.forEach(function(d) {
+                    friends_count = d.friend_count;
+                    followers_count = d.follower_count;
+                    statuses_count = d.status_count;
+                });
+    
+            });
+
+            setTimeout(function(){
+                $('#odometer_friends').html(friends_count);
+                $('#odometer_followers').html(followers_count);
+                $('#odometer_statuses').html(statuses_count);
+            }, 20);
+        }
+
+        function detectClick(filterName){
+            if (filterName == 'HillaryClinton'){
+                $('#clintonButton').addClass('addGlowEffect');
+                $('#trumpButton').removeClass('addGlowEffect');
+            } else if (filterName == 'realDonaldTrump') {
+                $('#clintonButton').removeClass('addGlowEffect');
+                $('#trumpButton').addClass('addGlowEffect');
+            }
+        }
+
+        function parallelSet(filterName){
+            var id = document.getElementById("parallelSet");
+            if (filterName == 'HillaryClinton'){
+                // id.appendChild("<iframe src='parallelSet_Clinton.html' style='height:680px;width:1300px;border:0;''></iframe>");
+                id.innerHTML =  "<h4>Retweet & Language & Sentiment Analysis</h4><iframe src='iframe/parallelSet_Clinton.html' style='height:680px;width:1300px;border:0;''></iframe>"; 
+            } else {
+                // id.removeChild(id.childNodes[1]);
+                id.innerHTML =  "<h4>Retweet & Language & Sentiment Analysis</h4><iframe src='iframe/parallelSet_Trump.html' style='height:680px;width:1300px;border:0;''></iframe>"; 
+                // id.appendChild("<iframe src='parallelSet_Trump.html' style='height:680px;width:1300px;border:0;''></iframe>");
+            }
+        }
+    
+    </script>
+
+    <h1>Tweet with Hillary Clinton & Donald Trump</h1>
+    <h2>by Goh Jie Xin, Lee Yean Wei & Ralph Ley Loong Yao</h2>
+
+    <div class="img_container">
+        <img src="img/clinton.jpg" alt="Avatar" class="round-hover" id="clintonButton" hspace="30" 
+             onclick="updateCount('HillaryClinton'); detectClick('HillaryClinton'); 
+                      barChart('HillaryClinton'); parallelSet('HillaryClinton');
+                      parallelCoord('HillaryClinton'); treeMap('HillaryClinton');
+                      heatMap('HillaryClinton'); wordCloud('HillaryClinton');">
+        <img src="img/trump.jpg" alt="Avatar" class="round-hover" id="trumpButton" hspace="30" 
+             onclick="updateCount('realDonaldTrump'); detectClick('realDonaldTrump'); 
+                      barChart('realDonaldTrump'); parallelSet('realDonaldTrump');
+                      parallelCoord('realDonaldTrump'); treeMap('realDonaldTrump');
+                      heatMap('realDonaldTrump'); wordCloud('realDonaldTrump');">
+    </div>
+
+    <div class="count_container">
+        <div class="friends_container">
+            <h3>Friends Count</h3>
+            <div class="odometer" id="odometer_friends">0</div>
+        </div>
+
+        <div class="followers_container">
+            <h3>Followers Count</h3>
+            <div class="odometer" id="odometer_followers">0</div>
+        </div>
+
+        <div class="statuses_container">
+            <h3>Statuses Count</h3>
+            <div class="odometer" id="odometer_statuses">0</div>
+        </div>
+    </div>
+
+    <br> <br>
+
+    <div class="viz_Row1"  id="barChart" style="height:600px;width:1300px">
+        <div class="barChart">
+            <h4>Tweet Statistic by Month and Date</h4>
+            <!-- <script>barChart("");</script> -->
+        </div>
+    </div>
+
+    <div class="viz_Row2" style="height:600px;width:1300px">
+        <div class="heatMap" id="heatMap">
+            <h4>Tweet Statistic by Day and Time</h4>
+        </div>
+    </div>
+
+    <div class="viz_Row3" style="height:720px;width:1300px">
+        <div class="parallelSet" id="parallelSet">
+            <h4>Retweet & Language & Sentiment Analysis</h4>
+        </div>
+    </div>
+
+    <div class="viz_Row4" >
+        <div class="parallelCoord" id="parallelCoord">
+            <h4>Tweet Length vs Retweet Count vs Favourite Count</h4>
+        </div>
+
+        <div class="treeMap" id="treeMap">
+            <h4>Retweet Author</h4>
+        </div>
+    </div>
+
+    <div class="viz_Row5">
+        <div class="wordCloudFrame">
+            <h4>Word Cloud</h4>
+            <center>
+            <div class="wordCloud">  </div>
+            </center>
+            <center>
+            <p id="infoContainer">  
+                <span id = "word"> Word </span>  
+                <br> 
+                <span style="font-size:0.7em"> Number of tweet containing this word : </span>
+                <br><br> 
+                <span id = "candidate"> </span> 
+            </p>
+            <div id="tweetsContainer" > </div>
+            </center>
+        </div>
+    </div>
+        <!-- <script>wordCloud('HillaryClinton');</script> -->
+    
+
+</body>

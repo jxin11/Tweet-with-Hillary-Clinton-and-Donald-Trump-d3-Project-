@@ -1,0 +1,53 @@
+d3.csv("cleanTweets.csv", function(d) {
+            return {
+                Day: d.date   //new Date(d.date)
+                // Freq: d.text
+            };
+        }, function(error, rows) {
+
+            dataset = rows; 
+            var counts = {};
+            rows.forEach(function(r) {
+                if (!counts[r.Day]) {
+                    counts[r.Day] = 0;
+                }
+                counts[r.Day]++;
+            });
+
+            Object.keys(counts).forEach(function(key) {
+                data.push({
+                    day: key,
+                    count: counts[key]
+                });
+            });
+
+            data.sort(function(a, b) {
+                var dateA = new Date(a.day), dateB = new Date(b.day);
+                return dateA - dateB;
+            });
+            console.log(data);
+
+            var nested_data = d3.nest()
+                            .key(function(d) { return d.day.split('-').slice(0, 2).join('-'); })
+                            .sortKeys(d3.ascending)
+                            .rollup(function(leaves) {
+                                return {
+                                    count: d3.sum(leaves, function(d){ return d.count })
+                                };
+                            })
+                            .entries(data);
+            // console.log(nested_data);
+
+            var keys = nested_data.map(function(d){ return d.key; });
+            // console.log(keys);
+
+            var bar_chart_data = {
+                data: keys,
+                count: nested_data.map(function(d){ return d.value.count; })
+            };
+            // console.log(bar_chart_data.count);
+            // console.log(JSON.stringify(bar_chart_data))
+            
+            var month = bar_chart_data.data;
+            var month_freq = bar_chart_data.count;
+            console.log(month_freq);

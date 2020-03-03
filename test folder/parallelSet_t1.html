@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <title>Parallel Set</title>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="d3.parsets.js"></script>
+    <link rel="stylesheet" href="d3.parsets.css">
+</head>
+
+<body>
+    <script>
+        var chart = d3.parsets()
+                      .dimensions(["is_retweet", "lang", "textTag"]);
+
+        var vis = d3.select("#vis").append("svg")
+                    .attr("width", chart.width())
+                    .attr("height", chart.height());
+
+        d3.csv("cleanTweets.csv", function(error, csv) {
+            vis.datum(csv).call(chart);
+        });
+
+    </script>
+</body>
