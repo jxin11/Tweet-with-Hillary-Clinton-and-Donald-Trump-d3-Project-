@@ -44,6 +44,10 @@ function parallelCoord(filterName){
 
     d3.csv("data/cleanTweets.csv", function(data) {
 
+        if (filterName != ""){
+            data = data.filter(function (a) { return a.handle === filterName; });
+        } 
+
         // Extract the list of dimensions and create a scale for each.
         dimensions.forEach(function(dimension) {
             dimension.scale.domain(dimension.type === "number"
@@ -55,9 +59,9 @@ function parallelCoord(filterName){
         svg.append("g")
             .attr("class", "background")
             .selectAll("path")
-            //.data(data)
+            .data(data)
             //.filter(function(d) { return d.handle == "realDonaldTrump";})
-            .data(data.filter(function(d){return d.handle == filterName;}))    //To filter the data
+            // .data(data.filter(function(d){return d.handle == filterName;}))    //To filter the data
             .enter().append("path")
             .attr("d", draw);
 
@@ -65,9 +69,9 @@ function parallelCoord(filterName){
         svg.append("g")
             .attr("class", "foreground")
             .selectAll("path")
-            //.data(data)
+            .data(data)
             //.filter(function(d) { return d.handle == "realDonaldTrump";})
-            .data(data.filter(function(d){return d.handle == filterName;}))   //To filter the data
+            // .data(data.filter(function(d){return d.handle == filterName;}))   //To filter the data
             .enter().append("path")
             .attr("d", draw);
 

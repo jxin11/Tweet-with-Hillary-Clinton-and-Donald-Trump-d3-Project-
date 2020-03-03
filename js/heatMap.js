@@ -91,7 +91,11 @@ function heatMap(filterName){
           };
         },
         function(error, data) {
+
+          if (filterName != ""){
             data=data.filter(function(a){return a.name === filterName})
+          }
+            
             data.forEach(function(a){
               const temp = new Date(a.day);
               a.day = temp.getDay();
@@ -151,7 +155,7 @@ function heatMap(filterName){
           m++;
           
         }while(m<len);
-      //  console.log(data);
+
         const colorScale = d3.scaleQuantile()
         // var colorScale = d3.scaleQuantile()
             .domain([0, buckets - 1, d3.max(data, function (data) { return data.value; })])

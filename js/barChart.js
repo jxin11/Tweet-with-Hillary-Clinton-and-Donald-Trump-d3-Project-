@@ -11,9 +11,14 @@ function barChart(filterName){
         
     },function(error, rows){
         
-        filtered = rows.filter(function (a) { return a.Name === filterName; });
+        if (filterName != ""){
+            filtered = rows.filter(function (a) { return a.Name === filterName; });
+            chartData = filtered;
+        } else{
+            chartData = rows;
+        }
 
-        chartData = filtered; 
+         
         chartData.sort(function(a, b) {
             var dateA = new Date(a.Day), dateB = new Date(b.Day);
             return dateA - dateB;
