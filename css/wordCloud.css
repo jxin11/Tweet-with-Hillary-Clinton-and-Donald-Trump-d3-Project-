@@ -5,14 +5,6 @@
 	margin-bottom: 40px;
 }
 
-/* .viz_Row5 .wordCloud{
-	/* background-color: black; */
-	display: flex;
-    /* flex-wrap: nowrap; */
-	flex-direction: column;
-	/* height: 900px; */
-} */
-
 .viz_Row5 #tweetsContainer span.bold{
 	font-weight:bold;
 }
