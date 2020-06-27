@@ -1,6 +1,8 @@
 # Tweet-with-Hillary-Clinton-and-Donald-Trump-d3-Project-
 Data Visualization Course Project with d3.js
 
+View the project at https://jxin11.github.io/Tweet-with-Hillary-Clinton-and-Donald-Trump-d3-Project-/
+
 The purpose of this project is to explore and create an interactive data visualization dashboard
 that can successfully convey the information or message to the audience. The project is
 developed by using the JavaScript library, Data-Driven Documents, D3.js. Through several
